@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cemni.core.dao.mapper.IUserMapper">
+
+    <select id="queryAllUsers" resultType="com.cemni.common.bean.UserBean">
+        select
+            m.id,
+            m.openid,
+            m.wechatname,
+            m.mobile,
+            m.password,
+            m.name,
+            m.gender,
+            m.birthday,
+            m.cardNo,
+            m.creditStatus,
+            m.credits,
+            m.convertedCredits,
+            m.level,
+            m.email,
+            m.wedding,
+            m.address,
+            m.profession,
+            m.purposetype,
+            m.purpose,
+            m.reasontype,
+            m.reason,
+            m.channeltype,
+            m.channel,
+            m.create_time as createTime,
+            m.last_update_time as lastUpdateTime
+        from member as m
+    </select>
+
+    <select id="queryUserByMobile" resultType="com.cemni.common.bean.UserBean">
+        select
+            m.id,
+            m.openid,
+            m.wechatname,
+            m.mobile,
+            m.password,
+            m.name,
+            m.gender,
+            m.birthday,
+            m.cardNo,
+            m.creditStatus,
+            m.credits,
+            m.convertedCredits,
+            m.level,
+            m.email,
+            m.wedding,
+            m.address,
+            m.profession,
+            m.purposetype,
+            m.purpose,
+            m.reasontype,
+            m.reason,
+            m.channeltype,
+            m.channel,
+            m.create_time as createTime,
+            m.last_update_time as lastUpdateTime
+        from member as m
+        where m.mobile = #{mobile}
+    </select>
+
+    <select id="queryUserByOpenId" resultType="com.cemni.common.bean.UserBean">
+        select
+            m.id,
+            m.openid,
+            m.wechatname,
+            m.mobile,
+            m.password,
+            m.name,
+            m.gender,
+            m.birthday,
+            m.cardNo,
+            m.creditStatus,
+            m.credits,
+            m.convertedCredits,
+            m.level,
+            m.email,
+            m.wedding,
+            m.address,
+            m.profession,
+            m.purposetype,
+            m.purpose,
+            m.reasontype,
+            m.reason,
+            m.channeltype,
+            m.channel,
+            m.create_time as createTime,
+            m.last_update_time as lastUpdateTime
+        from member as m
+        where m.openid = #{openId}
+    </select>
+
+    <insert id="createUser" parameterType="com.cemni.common.bean.UserBean" useGeneratedKeys="true" keyProperty="info.id">
+        insert into member
+        (
+            openid,
+            wechatname,
+            mobile,
+            password,
+            name,
+            gender,
+            birthday,
+            cardNo,
+            creditStatus,
+            credits,
+            convertedCredits,
+            level,
+            email,
+            wedding,
+            address_id,
+            address,
+            profession,
+            purposetype,
+            purpose,
+            reasontype,
+            reason,
+            channeltype,
+            channel,
+            create_time,
+            last_update_time
+        )
+        values
+        (
+            #{info.openid},
+            #{info.wechatname},
+            #{info.mobile},
+            #{info.password},
+            #{info.name},
+            #{info.gender},
+            #{info.birthday},
+            #{info.cardNo},
+            #{info.creditStatus},
+            #{info.credits},
+            #{info.convertedCredits},
+            #{info.level},
+            #{info.email},
+            #{info.wedding},
+            #{info.addressId},
+            #{info.address},
+            #{info.profession},
+            #{info.purposetype},
+            #{info.purpose},
+            #{info.reasontype},
+            #{info.reason},
+            #{info.channeltype},
+            #{info.channel},
+            #{info.createTime},
+            #{info.lastUpdateTime}
+        )
+    </insert>
+
+    <update id="updateUser" parameterType="com.cemni.common.bean.UserBean">
+        update member set
+        <if test="info.openid != null">
+            openid = #{info.openid},
+        </if>
+        <if test="info.wechatname != null">
+            wechatname = #{info.wechatname},
+        </if>
+        <if test="info.mobile != null">
+            mobile = #{info.mobile},
+        </if>
+        <if test="info.password != null">
+            password = #{info.password},
+        </if>
+        <if test="info.name != null">
+            name = #{info.name},
+        </if>
+        <if test="info.birthday != null">
+            birthday = #{info.birthday},
+        </if>
+        <if test="info.cardNo != null">
+            cardNo = #{info.cardNo},
+        </if>
+        <if test="info.creditStatus != null">
+            creditStatus = #{info.creditStatus},
+        </if>
+        <if test="info.credits != null">
+            credits = #{info.credits},
+        </if>
+        <if test="info.convertedCredits != null">
+            convertedCredits = #{info.convertedCredits},
+        </if>
+        <if test="info.level != null">
+            level = #{info.level},
+        </if>
+        <if test="info.email != null">
+            email = #{info.email},
+        </if>
+        <if test="info.wedding != null">
+            wedding = #{info.wedding},
+        </if>
+        <if test="info.addressId != null">
+            address_id = #{info.addressId},
+        </if>
+        <if test="info.address != null">
+            address = #{info.address},
+        </if>
+        <if test="info.profession != null">
+            profession = #{info.profession},
+        </if>
+        <if test="info.purposetype != null">
+            purposetype = #{info.purposetype},
+        </if>
+        <if test="info.purpose != null">
+            purpose = #{info.purpose},
+        </if>
+        <if test="info.reasontype != null">
+            reasontype = #{info.reasontype},
+        </if>
+        <if test="info.reason != null">
+            reason = #{info.reason},
+        </if>
+        <if test="info.channeltype != null">
+            channeltype = #{info.channeltype},
+        </if>
+        <if test="info.channel != null">
+            channel = #{info.channel},
+        </if>
+        <if test="info.createTime != null">
+            create_time = #{info.createTime},
+        </if>
+        <if test="info.lastUpdateTime != null">
+            last_update_time = #{info.lastUpdateTime},
+        </if>
+            id = #{info.id}
+        where id = #{info.id}
+    </update>
+
+    <update id="updateUserCardNo">
+        update member set
+            cardNo = #{cardNo},
+            credits = credits + 20
+        where id = #{id}
+    </update>
+
+</mapper>

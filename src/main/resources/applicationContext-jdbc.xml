@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--******************* meta database config start *******************-->
+    <bean id="metaDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${meta.driver}"/>
+        <property name="url" value="${meta.url}"/>
+        <property name="username" value="${meta.username}"/>
+        <property name="password" value="${meta.password}"/>
+        <property name="initialSize" value="${meta.initialSize}"/>
+        <property name="maxActive" value="${meta.maxActive}"/>
+        <property name="maxIdle" value="${meta.maxIdle}"/>
+        <property name="minIdle" value="${meta.minIdle}"/>
+        <property name="validationQuery" value="${meta.validationQuery}"/>
+    </bean>
+
+    <bean id="metaSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="metaDataSource"/>
+        <property name="mapperLocations" value="classpath*:sql/*.xml"/>
+    </bean>
+
+    <!--自动扫描数据库访问接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.cemni.core.dao.mapper"/>
+        <property name="markerInterface" value="com.cemni.core.dao.base.IMyBatisMapper"/>
+        <property name="sqlSessionFactoryBeanName" value="metaSqlSessionFactory"/>
+    </bean>
+
+    <!--注解事务管理-->
+    <bean id="transactionManagerMeta" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="metaDataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManagerMeta"/>
+    <!--******************* meta database config end *******************-->
+
+</beans>

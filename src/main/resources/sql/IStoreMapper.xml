@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cemni.core.dao.mapper.IStoreMapper">
+
+    <select id="queryAllStore" resultType="com.cemni.common.bean.StoreBean">
+        select
+            s.storeCode as storeNo,
+            s.name,
+            s.attr,
+            s.tel,
+            s.form,
+            s.isSeal as isValid,
+            s.shopupDate,
+            s.province,
+            s.provinceName,
+            s.city,
+            s.cityName,
+            s.county,
+            s.countyName,
+            s.addr,
+            s.last_update_time as lastUpdateTime,
+            s.lng,
+            s.lat
+        from store as s
+        where s.isSeal = 1
+    </select>
+
+    <select id="queryStoreByStoreNo" resultType="com.cemni.common.bean.StoreBean">
+        select
+            s.storeCode as storeNo,
+            s.name,
+            s.attr,
+            s.tel,
+            s.form,
+            s.isSeal as isValid,
+            s.shopupDate,
+            s.province,
+            s.provinceName,
+            s.city,
+            s.cityName,
+            s.county,
+            s.countyName,
+            s.addr,
+            s.last_update_time as lastUpdateTime,
+            s.lng,
+            s.lat
+        from store as s
+        where s.storeCode = #{storeNo}
+    </select>
+
+    <insert id="createStore" parameterType="com.cemni.common.bean.StoreBean">
+        insert into store
+        (
+            storeCode,
+            name,
+            attr,
+            tel,
+            form,
+            isSeal,
+            shopupDate,
+            province,
+            provinceName,
+            city,
+            cityName,
+            county,
+            countyName,
+            addr,
+            last_update_time,
+            lng,
+            lat
+        )
+        values
+        (
+            #{info.storeNo},
+            #{info.name},
+            #{info.attr},
+            #{info.tel},
+            #{info.form},
+            #{info.isValid},
+            #{info.shopupDate},
+            #{info.province},
+            #{info.provinceName},
+            #{info.city},
+            #{info.cityName},
+            #{info.county},
+            #{info.countyName},
+            #{info.addr},
+            #{info.lastUpdateTime},
+            #{info.lng},
+            #{info.lat}
+        )
+    </insert>
+
+    <update id="updateStore" parameterType="com.cemni.common.bean.StoreBean">
+        update store set
+        <if test="info.name != null">
+            name = #{info.name},
+        </if>
+        <if test="info.attr != null">
+            attr = #{info.attr},
+        </if>
+        <if test="info.tel != null">
+            tel = #{info.tel},
+        </if>
+        <if test="info.form != null">
+            form = #{info.form},
+        </if>
+        <if test="info.isValid != null">
+            isSeal = #{info.isValid},
+        </if>
+        <if test="info.shopupDate != null">
+            shopupDate = #{info.shopupDate},
+        </if>
+        <if test="info.province != null">
+            province = #{info.province},
+        </if>
+        <if test="info.provinceName != null">
+            provinceName = #{info.provinceName},
+        </if>
+        <if test="info.city != null">
+            city = #{info.city},
+        </if>
+        <if test="info.cityName != null">
+            cityName = #{info.cityName},
+        </if>
+        <if test="info.county != null">
+            county = #{info.county},
+        </if>
+        <if test="info.countyName != null">
+            countyName = #{info.countyName},
+        </if>
+        <if test="info.addr != null">
+            addr = #{info.addr},
+        </if>
+        <if test="info.lastUpdateTime != null">
+            last_update_time = #{info.lastUpdateTime},
+        </if>
+        <if test="info.lng != null">
+            lng = #{info.lng},
+        </if>
+        <if test="info.lat != null">
+            lat = #{info.lat},
+        </if>
+            storeCode = #{info.storeNo}
+        where storeCode = #{info.storeNo}
+    </update>
+
+</mapper>
